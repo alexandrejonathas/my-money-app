@@ -31,7 +31,6 @@ class BillingCycleList extends Component{
     }
 
     render(){
-        console.log(this.props.list)
         return (
             <div>
                 <table  className='table'>
@@ -40,7 +39,7 @@ class BillingCycleList extends Component{
                             <th>Nome</th>
                             <th>Mês</th>
                             <th>Ano</th>
-                            <th>Ações</th>
+                            <th className="table-actions">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
