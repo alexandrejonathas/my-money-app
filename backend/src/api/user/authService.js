@@ -5,7 +5,7 @@ const User = require('./user')
 const env = require('../../.env')
 
 const emailRegex = /\S+@\S+\.\S+/
-const passwordRegex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%].{6, 20}))/
+const passwordRegex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})/
 
 const sendErrorsFromDB = (res, dbErrors) => {
     const errors = []
@@ -24,6 +24,8 @@ const login = (req, res, next) => {
             const token = jwt.sign(user, env.authSecret, {
                 expiresIn: '1 day'
             })
+            const { name, email } = user
+            res.json({ name, email, token })            
         }else{
             return res.status(400).send({errors: ['Usuário/Senha inválidos!']})
         }

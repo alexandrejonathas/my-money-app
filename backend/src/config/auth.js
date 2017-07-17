@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
             if(err){
                 return res.status(403).send({errors: ['Failed to athenticate token!']})
             }else{
-                //req.decoded = decoded
+                req.decoded = decoded
                 next()
             }
         })

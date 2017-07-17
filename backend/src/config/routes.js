@@ -25,7 +25,7 @@ module.exports = function(server){
     const AuthService = require('../api/user/authService')
 
     openApi.post('/login', AuthService.login)
-    openApi.post('/signup', AuthService.signUp)
+    openApi.post('/sign-up', AuthService.signUp)
     openApi.post('/validate-token', AuthService.validateToken)    
 
 }
