@@ -2,13 +2,17 @@ import axios from 'axios'
 import { toastr } from 'react-redux-toastr'
 import { reset as resetForm, initialize } from 'redux-form'
 import { showTabs, selectTab } from '../common/tab/tabActions'
+import consts from '../consts'
 
 const BASE_URL = 'http://localhost:3003/api'
 
-const INITIAL_VALUES = {credits: [{}], debts: [{}]}
+const user = JSON.parse(localStorage.getItem(consts.userKey))
+
+const INITIAL_VALUES = {credits: [{}], debts: [{}], user_id: user._id}
 
 export function getList(){
-    const request = axios.get(`${BASE_URL}/billingCycles`)
+    const id = user._id ? user._id : ''
+    const request = axios.get(`${BASE_URL}/billingCycles/cycles/${id}`)
     return {
         type: 'BILLING_CYCLES_FETCHED',
         payload: request
@@ -16,6 +20,7 @@ export function getList(){
 }
 
 function submit(values, method){
+    console.log(values)
     return dispatch => {
         const id = values._id ? values._id : ''
         axios[method](`${BASE_URL}/billingCycles/${id}`, values)

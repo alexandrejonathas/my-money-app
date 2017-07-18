@@ -10,7 +10,7 @@ module.exports = function(server){
     const protectedApi = express.Router()
     server.use('/api', protectedApi)
 
-    protectedApi.use(auth)
+    //protectedApi.use(auth)
 
     //Rotas do ciclo de pagamento
     const BillingCycle = require('../api/billingCycle/billingCycleService')

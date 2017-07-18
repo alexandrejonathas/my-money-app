@@ -37,6 +37,8 @@ class BillingCycleForm extends Component{
                     <Field name='year' component={LabelAndInput} 
                         readOnly={readOnly}
                         label='Ano' type='number' cols='12 4' placeholder='Informe o ano' />
+                    <Field name='user_id' component={LabelAndInput}
+                        type='hidden' cols='12 4' />                        
                     <Summary credit={sumOfCredits} debt={sumOfDebts} />    
                     <ItemList cols='12 6' list={credits} readOnly={readOnly} 
                         field='credits' legend='Créditos'/>

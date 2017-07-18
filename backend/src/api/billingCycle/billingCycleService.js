@@ -1,6 +1,8 @@
 const BillingCycle = require('./billingCycle')
 const errorHandler = require('../common/errorHandler')
 
+var ObjectId = require('mongodb').ObjectID;
+
 BillingCycle.methods(['get', 'post', 'put', 'delete'])
 BillingCycle.updateOptions({ new: true, runValidators: true })
 
@@ -35,6 +37,18 @@ BillingCycle.route('summary', (req, res, next) => {
         }else{
             res.json(result[0] || {credit: 0, debt: 0})
         }        
+    })
+})
+
+//Criado por mim
+BillingCycle.route('/cycles/:user_id', (req, res, next) => {
+    console.log(req.params.user_id)
+    BillingCycle.find({"user_id": ObjectId("596cdc1e360d273c03626c71")}, (error, value) => {
+        if(error){
+            res.status(500).json({errors: [error]})
+        }else{
+            res.json({value})
+        }
     })
 })
 
