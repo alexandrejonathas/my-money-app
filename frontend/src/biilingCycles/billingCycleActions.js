@@ -4,15 +4,13 @@ import { reset as resetForm, initialize } from 'redux-form'
 import { showTabs, selectTab } from '../common/tab/tabActions'
 import consts from '../consts'
 
-const BASE_URL = 'http://localhost:3003/api'
+const BASE_URL = consts.API_URL
 
 const user = JSON.parse(localStorage.getItem(consts.userKey))
-
-const INITIAL_VALUES = {credits: [{}], debts: [{}], user_id: user._id}
+const INITIAL_VALUES = {credits: [{}], debts: [{}], user_id: user ? user._id : ''}
 
 export function getList(){
-    const id = user._id ? user._id : ''
-    const request = axios.get(`${BASE_URL}/billingCycles/cycles/${id}`)
+    const request = axios.get(`${BASE_URL}/billingCycles/cycles/${user._id}`)
     return {
         type: 'BILLING_CYCLES_FETCHED',
         payload: request
@@ -20,10 +18,9 @@ export function getList(){
 }
 
 function submit(values, method){
-    console.log(values)
     return dispatch => {
-        const id = values._id ? values._id : ''
-        axios[method](`${BASE_URL}/billingCycles/${id}`, values)
+        const id = values._id || ''
+        axios[method](`${BASE_URL}/billingCycles/cycles/${id}`, values)
             .then(resp => {
                 toastr.success('Sucesso', 'Operação realizada com sucesso!')
                 //Pra pasar um array para o dispatch é necessário o midleware redux-multi
